@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Item = require('./Item');
-const { createItem, listItems } = require('../services/itemService.js')
+const { createItem, listItems, deleteItem, getItem } = require('../services/itemService.js')
 const { it } = require('@jest/globals');
 
 const itemData1 = {
@@ -13,10 +13,17 @@ const itemData2 = {
     date: Date.now
 }
 
+const itemWrongData = {
+    date: Date.now
+}
+
 mongoose.connect('mongodb://mongo:27017/docker-node-mongo', { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
+Item.deleteMany({ name: 'Mael' }).exec()
+Item.deleteMany({ name: 'Pierre' }).exec()
+Item.deleteMany({ name: 'Mama' }).exec()
 
 it("Create and save item", async () => {
     const savedItem = await createItem(new Item(itemData1))
@@ -38,7 +45,6 @@ test('find all items', async () => {
 
     // Get items
     const items = await listItems()
-
     // Check items
     expect(items.length).toBe(2)
     expect(items[0] instanceof Item).toBe(true)
@@ -51,33 +57,61 @@ test('find all items', async () => {
     await Item.deleteOne({ name: 'Pierre' }).exec()
 });
 
-// CES METHODES N'EXISTE PAS DANS LE SERVICE CE SONT DES TESTS HYPOTHETIQUES (a commenter pour faire passer les tests)
 test('delete item', async () => {
     // Create items
     await createItem(new Item(itemData1))
-    await createItem(new Item(itemData2))
 
-    // Delete item (don't exist but function with name in parameter)
-    await deleteItem('Mael')
+    // Delete item
+    await deleteItem({ name: 'Mael' })
 
     const item = await Item.findOne({ name: 'Mael' }).exec()
+
     expect(item).toBeNull()
+
+    await Item.deleteOne({ name: 'Mael' }).exec()
 });
 
-test('update item', async () => {
-    // Create items
+test('create item with wrong body', () => {
+    expect(() => {
+        createItem(new Item(itemWrongData));
+    }).toThrow();
+})
+
+test('delete item with wrong body', () => {
+    expect(() => {
+        deleteItem(new Item(itemWrongData));
+    }).toThrow();
+})
+
+test('get item', async () => {
     await createItem(new Item(itemData1))
 
-    // update item (don't exist but function with name in first parameter, update_name in second parameter)
-    await update('Mael', 'Mama')
+    const item = await getItem({ name: 'Mael' })
 
-    // get in DB
-    const item = await Item.findOne({ name: 'Mama' }).exec()
-
-    // checking
     expect(item instanceof Item).toBe(true)
-    expect(item['name']).toBe('Mama')
+    expect(item['name']).toBe('Mael')
 
-    // delete items after checking be done
-    await Item.deleteOne({ name: 'Mama' }).exec()
-});
+    await Item.deleteOne({ name: 'Mael' }).exec()
+})
+
+// METHOD DON'T EXIST IN SERVICE BUT TEST ALREADY CREATE
+// test('update item', async () => {
+//     // Create items
+//     await createItem(new Item(itemData1))
+
+//     // update item (don't exist but function with name in first parameter, update_name in second parameter)
+//     await updateItem({ name: 'Mael', updateName: 'Mama' })
+
+//     // get in DB
+//     const newItem = await Item.findOne({ name: 'Mama' }).exec()
+//     const oldItem = await Item.findOne({ name: 'Mael' }).exec()
+
+//     console.log(await Item.find({}).exec())
+//     // checking
+//     expect(newItem instanceof Item).toBe(true)
+//     expect(newItem['name']).toBe('Mama')
+//     expect(oldItem).toBeNull()
+
+//     // delete items after checking be done
+//     await Item.deleteOne({ name: 'Mama' }).exec()
+// });
