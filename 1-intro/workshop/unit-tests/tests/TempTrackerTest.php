@@ -65,4 +65,27 @@ class TempTrackerTest extends TestCase {
         $this->assertEquals(15, $tempTracker->get_max());
     }
 
+    /*
+     * Test cases for the mean
+     */
+    public function test_get_mean() {
+        $tempTracker = new TempTracker();
+
+        $tempTracker->insert(12);
+        $tempTracker->insert(10);
+        $tempTracker->insert(15);
+        $tempTracker->insert(3);
+
+        $expectedMean = 10;
+
+        $this->assertEquals($expectedMean, $tempTracker->get_mean());
+    }
+
+    public function test_get_mean_error() {
+        $tempTracker = new TempTracker();
+
+        $this->expectException(ValueError::class);
+        $tempTracker->get_mean();
+    }
+
 }
