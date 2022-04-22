@@ -69,7 +69,7 @@ describe("Gilded Rose", function () {
 
   //"Sulfuras", étant un objet légendaire, n'a pas de date de péremption et ne perd jamais en qualité (quality)
   it("Sulfuras shouldn't loose quality and sellIn", function () {
-    startQuality = 45;
+    startQuality = 80;
     StartSellIn = 5;
     const gildedRose = new Shop([
       new Item("Sulfuras, Hand of Ragnaros", StartSellIn, startQuality),
@@ -145,5 +145,35 @@ describe("Gilded Rose", function () {
     }
 
     expect(gildedRose.items[0].quality).toBe(0);
+  });
+
+  //Les items avec la mention Conjured se dégradent deux fois plus vite
+  it("Conjured items ", function () {
+    const gildedRose = new Shop([
+      new Item("Conjured Sword", 3, 20),
+      new Item("Sword", 3, 20),
+    ]);
+
+    //Loop for 5 days
+    for (let i = 0; i < 5; i++) {
+      items = gildedRose.updateQuality();
+      console.log(items)
+    }
+
+    //day 0 : 
+    //Sword - sellIn : 3 / quality : 20      || Cursed Sword - sellIn : 3 / quality : 20
+    //day 1 : 
+    //Sword - sellIn : 2 / quality : 19 (-1) || Cursed Sword - sellIn : 2 / quality : 18  (-2)
+    //day 2 : 
+    //Sword - sellIn : 1 / quality : 18 (-1) || Cursed Sword - sellIn : 1 / quality : 16 (-2)
+    //day 3 : 
+    //Sword - sellIn : 0 / quality : 17 (-1) || Cursed Sword - sellIn : 0 / quality : 14 (-2)
+    //day 4 : 
+    //Sword - sellIn : -1 / quality : 15 (-2) || Cursed Sword - sellIn : -1 / quality : 10 (-4)
+    //day 5 : 
+    //Sword - sellIn : -2 / quality : 13 (-2) || Cursed Sword - sellIn : -2 / quality : 6 (-4)
+
+    expect(gildedRose.items[0].quality).toBe(6);
+    expect(gildedRose.items[1].quality).toBe(13);
   });
 });
