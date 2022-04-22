@@ -121,6 +121,7 @@ updateQuality(){
 //   }
 // }
 
+}
 module.exports = {
   Item,
   Shop
