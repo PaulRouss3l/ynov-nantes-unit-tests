@@ -9,15 +9,15 @@ describe("Gilded Rose", function () {
 
   //Une fois que la date de péremption est passée, la qualité se dégrade deux fois plus rapidement.
   it("should degrade twice as fast when sellIn equal 0", function () {
-    const gildedRose = new Shop([new Item("Sword", 0, 12)]);
+    const gildedRose = new Shop([new Item("Sword", 3, 12)]);
 
     //Loop for 5 days
     for (let i = 0; i < 5; i++) {
       items = gildedRose.updateQuality();
-      //console.log(items)
+      console.log(items)
     }
 
-    expect(gildedRose.items[0].quality).toBeGreaterThanOrEqual(2);
+    expect(gildedRose.items[0].quality).toBe(5);
   });
 
   //La qualité (quality) d'un produit ne peut jamais être négative.
@@ -157,7 +157,7 @@ describe("Gilded Rose", function () {
     //Loop for 5 days
     for (let i = 0; i < 5; i++) {
       items = gildedRose.updateQuality();
-      console.log(items)
+      //console.log(items)
     }
 
     //day 0 : 
