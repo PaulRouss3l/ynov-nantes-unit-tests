@@ -7,6 +7,17 @@ describe("Gilded Rose", function () {
     expect(items[0].name).toBe("Sword");
   });
 
+  // it("should degrade twice as fast when sellIn equal 0", function() {
+  //   const gildedRose = new Shop([new Item("Sword", 1, 10)]);
+
+  //   //Loop for 5 days
+  //   for (let i = 0; i < 5; i++) {
+  //     items = gildedRose.updateQuality();
+  //     //console.log(items)
+  //   }
+  // })
+
+
   it("quality shouldn't be negative", function () {
     //sellIn = 5, quality = 3
     const gildedRose = new Shop([new Item("Sword", 5, 3)]);
@@ -27,9 +38,22 @@ describe("Gilded Rose", function () {
     //Loop for 5 days
     for (let i = 0; i < 5; i++) {
       items = gildedRose.updateQuality();
-      console.log(items)
+      //console.log(items)
     }
 
     expect(gildedRose.items[0].quality).toBeGreaterThan(startQuality);
+  });
+
+  it("quality shouldn't be superior than 50", function () {
+    startQuality = 49
+    const gildedRose = new Shop([new Item("Aged Brie", 5, startQuality)]);
+
+    //Loop for 5 days
+    for (let i = 0; i < 5; i++) {
+      items = gildedRose.updateQuality();
+      //console.log(items)
+    }
+
+    expect(gildedRose.items[0].quality).not.toBeGreaterThan(50);
   });
 });
