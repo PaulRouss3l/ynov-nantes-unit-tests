@@ -24,4 +24,6 @@ for (let day = 0; day < days; day++) {
   console.log("name, sellIn, quality");
   items.forEach(item => console.log(`${item.name}, ${item.sellIn}, ${item.quality}`));
   gildedRose.updateQuality();
-}
+} 
+
+module.exports = {gildedRose}
