@@ -13,7 +13,7 @@ describe("Gilded Rose", function () {
     //Loop for 5 days
     for (let i = 0; i < 5; i++) {
       items = gildedRose.updateQuality();
-      console.log(items)
+      //console.log(items)
     }
 
     expect(gildedRose.items[0].quality).toBeGreaterThanOrEqual(2);
@@ -59,5 +59,16 @@ describe("Gilded Rose", function () {
     expect(gildedRose.items[0].quality).not.toBeGreaterThan(50);
   });
 
-  
+  it("Sulfuras shouldn't loose quality", function () {
+    startQuality = 500
+    const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", 5, startQuality)]);
+
+    //Loop for 5 days
+    for (let i = 0; i < 5; i++) {
+      items = gildedRose.updateQuality();
+      console.log(items)
+    }
+
+    expect(gildedRose.items[0].quality).toBe(startQuality);
+  });
 });
