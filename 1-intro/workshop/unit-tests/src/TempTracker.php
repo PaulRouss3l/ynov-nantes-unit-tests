@@ -70,5 +70,4 @@ class TempTracker {
         $this->uptodate_mean_temp = true;
         return $this->mean_temp;
     }
-
 }
