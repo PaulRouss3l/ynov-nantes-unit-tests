@@ -23,6 +23,10 @@ final class GildedRose
                 if ($item->quality > 0) {
                     if ($item->name != 'Sulfuras, Hand of Ragnaros') {
                         $item->quality = $item->quality - 1;
+
+                        if(str_contains($item->name, 'Conjured')){
+                            $item->quality = $item->quality - 1;
+                        }
                     }
                 }
             } else {
@@ -53,6 +57,10 @@ final class GildedRose
                         if ($item->quality > 0) {
                             if ($item->name != 'Sulfuras, Hand of Ragnaros') {
                                 $item->quality = $item->quality - 1;
+
+                                if(str_contains($item->name, 'Conjured')){
+                                    $item->quality = $item->quality - 1;
+                                }
                             }
                         }
                     } else {
