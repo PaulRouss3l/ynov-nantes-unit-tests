@@ -14,7 +14,7 @@ describe("Gilded Rose", function () {
     //Loop for 5 days
     for (let i = 0; i < 5; i++) {
       items = gildedRose.updateQuality();
-      console.log(items)
+      //console.log(items)
     }
 
     expect(gildedRose.items[0].quality).toBe(5);
