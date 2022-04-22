@@ -50,7 +50,10 @@ describe("Gilded Rose", function () {
   //La qualité d'un produit n'est jamais de plus de 50.
   it("quality shouldn't be superior than 50", function () {
     startQuality = 49;
-    const gildedRose = new Shop([new Item("Aged Brie", 5, startQuality)]);
+    const gildedRose = new Shop([
+      new Item("Aged Brie", 15, startQuality),
+      new Item("Backstage passes to a TAFKAL80ETC concert", 15, startQuality)
+    ]);
 
     //Loop for 5 days
     for (let i = 0; i < 5; i++) {
@@ -58,13 +61,16 @@ describe("Gilded Rose", function () {
       //console.log(items)
     }
 
+    //Aged Brie
     expect(gildedRose.items[0].quality).not.toBeGreaterThan(50);
+    //Backstage passes
+    expect(gildedRose.items[1].quality).not.toBeGreaterThan(50);
   });
 
   //"Sulfuras", étant un objet légendaire, n'a pas de date de péremption et ne perd jamais en qualité (quality)
   it("Sulfuras shouldn't loose quality and sellIn", function () {
     startQuality = 45;
-    StartSellIn = 5
+    StartSellIn = 5;
     const gildedRose = new Shop([
       new Item("Sulfuras, Hand of Ragnaros", StartSellIn, startQuality),
     ]);
@@ -72,10 +78,10 @@ describe("Gilded Rose", function () {
     //Loop for 5 days
     for (let i = 0; i < 5; i++) {
       items = gildedRose.updateQuality();
-      console.log(items)
+      //console.log(items)
     }
 
-    expect(gildedRose.items[0].sellIn).toBe(StartSellIn)
+    expect(gildedRose.items[0].sellIn).toBe(StartSellIn);
     expect(gildedRose.items[0].quality).toBe(startQuality);
   });
 
