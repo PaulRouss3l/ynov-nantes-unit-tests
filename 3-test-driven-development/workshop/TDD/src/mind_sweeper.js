@@ -1,3 +1,5 @@
+const regexDotsAndStars = /^[\*|\.]*$/;
+
 class Field {
   checkErrors = (height, largeur) => {
     if (height > 100) {
@@ -16,51 +18,42 @@ class Field {
     }
   };
 
-  checkMindefield = (mindfield, height, width) => {
-    const tabField = this.transformMindfieldToTable(mindfield);
+  checkMinefield = (minefield, height, width) => {
+    const tabField = this.transformMinefieldToTable(minefield);
 
     if (!tabField.flat().includes("*")) {
       throw "Must be at least one bomb";
     }
 
     if (tabField.length !== height) {
-      throw "Height not correspond to mindefield";
+      throw "Height not correspond to minefield";
     }
 
     tabField.forEach((ligne) => {
       if (ligne.length !== width) {
-        throw "Width not correspond to mindefield";
+        throw "Width not correspond to minefield";
       }
     });
   };
 
-  transformMindfieldToTable = (mindfield) => {
-    const splitString = mindfield.split("\n");
+  transformMinefieldToTable = (mineField) => {
+    const splitString = mineField.split("\n");
     const fieldTab = splitString.map((str) => str.replace(/ /g, ""));
-
     const superTable = fieldTab.map((ligne) => {
+        if (!ligne.match(regexDotsAndStars)){
+          throw 'Character not valid';
+        }
       return Array.from(ligne);
     });
-
     return superTable;
   };
 
-  constructor(height, largeur, mindfield) {
+  constructor(height, largeur, minefield) {
     this.checkErrors(height, largeur);
-    this.checkMindefield(mindfield, height, largeur);
+    this.checkMinefield(minefield, height, largeur);
     this.height = height;
     this.largeur = largeur;
-    this.mindfield = mindfield;
-  }
-
-  transformToPlayableGrid(field){
-    const newField = field;
-    for(var i =0; i < this.height; i++){
-      for (var j = 0; j < this.largeur; j++ ){
-        newField[i][j] = this.returnValue(i, j, field);
-      }
-    }
-    return newField;
+    this.minefield = this.transformMinefieldToTable(minefield);
   }
 
   returnValue(h, w, newField){    
@@ -86,13 +79,48 @@ class Field {
     }
 }
 
-class MindSweeper {
+class MineSweeper {
   constructor() {
-    //TODO
+    this.fields = [];
+  }
+
+  addField(field){
+    if (field == undefined)
+    {
+      throw 'Field is undefined';
+    }
+    this.fields.push(field);
+  }
+
+  transformToPlayableGrid(field){
+    const newField = field;
+    for(var i =0; i < this.height; i++){
+      for (var j = 0; j < this.largeur; j++ ){
+        newField[i][j] = this.returnValue(i, j, field);
+      }
+    }
+
+    return this.doubleDimentionnalArrayToString(newField);
+  }
+
+  doubleDimentionnalArrayToString(array){
+    var text = "";
+    var firstLine = true;
+    array.forEach(element => {
+      if (!firstLine)
+      {
+        text+='\n';
+      }
+      firstLine = false;      
+      element.forEach ( char=> {
+        text+=char;
+      })
+    });
+    return text;
   }
 }
 
 module.exports = {
   Field,
-  MindSweeper,
+  MineSweeper,
 };
