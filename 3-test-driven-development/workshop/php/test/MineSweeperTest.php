@@ -98,6 +98,7 @@ class MineSweeperTest extends TestCase
         }
     }
 
+    // Ce test fonctionne mais le code dans le controlleur lui ne fonctionne pas ! 
     public function testMineSweeper(): void
     {
         /** @var Grid */
@@ -118,9 +119,7 @@ class MineSweeperTest extends TestCase
             '3' => [2, '*',  3,  1]
         ];
 
-        var_dump($mineSweeper->mineSweeper());
-
-        //$this->assertEquals($mineSweeper->mineSweeper(), $finalGrid);
+        $this->assertEquals($mineSweeper->mineSweeper(), $finalGrid);
     }
 
     protected function tearDown(): void
