@@ -1,11 +1,56 @@
-import functions from '../src/minesweeper';
+import functions from "../src/minesweeper";
 
-describe('setupGame tests', function () {
-  it('should return an array', () => {
-    expect(functions.setupGame()).toStrictEqual([["*",".",".","."],[".",".",".","."],[".","*",".","."],[".",".",".","."]])
+describe("setupGame tests", function () {
+  it("should return an array", () => {
+    expect(functions.setupGame()).toStrictEqual([
+      ["*", ".", ".", "."],
+      [".", ".", ".", "."],
+      [".", "*", ".", "."],
+      [".", ".", ".", "."],
+    ]);
   });
-  it('should not have chars like *', ()=> {
-    const grid = [["*",".",".","."],[".",".",".","."],[".","*",".","."],[".",".",".","."]]
-    expect(functions.transformBombsGrid(grid)).toStrictEqual([["0",".",".","."],[".",".",".","."],[".","0",".","."],[".",".",".","."]])
+  it("should have bombs position", () => {
+    const grid = [
+      ["*", ".", ".", "."],
+      [".", ".", ".", "."],
+      [".", "*", ".", "."],
+      [".", ".", ".", "."],
+    ];
+    expect(functions.getBombsPosition(grid)).toStrictEqual([
+      ["0", "0"],
+      ["2", "1"],
+    ]);
+  });
+  it("should have transform safe case next to bombs", () => {
+    const grid = [
+      ["*", ".", ".", "."],
+      [".", ".", ".", "."],
+      [".", "*", ".", "."],
+      [".", ".", ".", "."],
+    ];
+    const bombsPosition = [
+      [0, 0],
+      [2, 1],
+    ];
+    expect(functions.putSafeCaseNextToBomb(grid, bombsPosition)).toStrictEqual([
+      ["*", "1", ".", "."],
+      ["2", "2", "1", "."],
+      ["1", "*", "1", "."],
+      ["1", "1", "1", "."],
+    ]);
+  });
+  it("should have transform '.' chars into '0'", () => {
+    const grid = [
+      ["*", "1", ".", "."],
+      ["2", "2", "1", "."],
+      ["1", "*", "1", "."],
+      ["1", "1", "1", "."],
+    ];
+    expect(functions.changePointTo0(grid)).toStrictEqual([
+      ["*", "1", "0", "0"],
+      ["2", "2", "1", "0"],
+      ["1", "*", "1", "0"],
+      ["1", "1", "1", "0"],
+    ]);
   });
 });
