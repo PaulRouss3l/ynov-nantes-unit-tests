@@ -69,10 +69,6 @@ class Field {
         var value = 0;
         for(var i = h-1; i <= h+1; i++){
         for (var j = w-1; j <= w+1; j++ ){
-          if (h == 1 && w == 0){
-          console.log('i = ', i, 'j = ',j);
-          }
-
           if (i >= 0 && i<this.height && j >= 0 && j<this.largeur)
           {   
             if (newField[i][j] == "*"){
