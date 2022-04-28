@@ -3,6 +3,7 @@ import {
   field_one_bomb5x4,
   field_only_points4x4,
   field_only_points5x4,
+  field_multi_bomb4x4
 } from "../fields";
 import { Field } from "../mind_sweeper";
 
@@ -91,4 +92,13 @@ describe("Minesweeper", function () {
       field.transformMindfieldToTable(field_only_points5x4, 5, 4);
     }).toThrowError(/^Must be at least one bomb$/);
   });
+
+  it("field has at least one bomb", function () {
+    var field = new Field(4, 4, field_multi_bomb4x4);
+
+    const tabField = field.transformMindfieldToTable(field_multi_bomb4x4, 4, 4);
+    const newGrid = field.transformToPlayableGrid(tabField);
+    console.log(newGrid);
+  });
+
 });

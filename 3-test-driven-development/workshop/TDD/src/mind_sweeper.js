@@ -37,13 +37,10 @@ class Field {
   transformMindfieldToTable = (mindfield) => {
     const splitString = mindfield.split("\n");
     const fieldTab = splitString.map((str) => str.replace(/ /g, ""));
-    console.log(fieldTab);
 
     const superTable = fieldTab.map((ligne) => {
       return Array.from(ligne);
     });
-
-    console.log("superTable", superTable);
 
     return superTable;
   };
@@ -55,6 +52,42 @@ class Field {
     this.largeur = largeur;
     this.mindfield = mindfield;
   }
+
+  transformToPlayableGrid(field){
+    const newField = field;
+    for(var i =0; i < this.height; i++){
+      for (var j = 0; j < this.largeur; j++ ){
+        newField[i][j] = this.returnValue(i, j, field);
+      }
+    }
+    return newField;
+  }
+
+  returnValue(h, w, newField){    
+  if (newField[h][w] != "*")
+      {
+        var value = 0;
+        for(var i = h-1; i <= h+1; i++){
+        for (var j = w-1; j <= w+1; j++ ){
+          if (h == 1 && w == 0){
+          console.log('i = ', i, 'j = ',j);
+          }
+
+          if (i >= 0 && i<this.height && j >= 0 && j<this.largeur)
+          {   
+            if (newField[i][j] == "*"){
+              value +=1;
+            }
+          }
+        }
+      }
+      return value.toString();
+    }
+    else {
+      return '*';
+    }
+      
+    }
 }
 
 class MindSweeper {
