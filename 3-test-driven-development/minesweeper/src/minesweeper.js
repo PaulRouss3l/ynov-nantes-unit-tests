@@ -1,4 +1,7 @@
 function setupGame(nbLignes, nbCases, nbMines) {
+  if (nbLignes <= 0) {
+    throw new Error("Valeur nbLignes invalide");
+  }
   let grid = [];
   for (let i = 0; i < nbLignes; i++) {
     let grid2 = [];
@@ -28,12 +31,14 @@ function setupGame(nbLignes, nbCases, nbMines) {
   grid.forEach((line) => {
     j = 0;
     line.forEach((row) => {
-        let findBombPosition = randomBombsPosition.find(element => element == compteur);
-        if(findBombPosition != undefined){
-            grid[i][j]="*"
-        }
-        compteur ++ 
-        j++;
+      let findBombPosition = randomBombsPosition.find(
+        (element) => element == compteur
+      );
+      if (findBombPosition != undefined) {
+        grid[i][j] = "*";
+      }
+      compteur++;
+      j++;
     });
     i++;
   });

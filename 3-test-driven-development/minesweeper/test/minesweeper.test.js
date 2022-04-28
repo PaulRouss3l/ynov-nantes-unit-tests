@@ -2,7 +2,7 @@ import functions from "../src/minesweeper";
 
 describe("setupGame tests", function () {
   it("should return an object", () => {
-    expect(typeof functions.setupGame(4,4,2)).toBe("object")
+    expect(typeof functions.setupGame(4, 4, 2)).toBe("object");
   });
   it("should have bombs position", () => {
     const grid = [
@@ -47,5 +47,15 @@ describe("setupGame tests", function () {
       ["1", "*", "1", "0"],
       ["1", "1", "1", "0"],
     ]);
+  });
+});
+
+describe("test invalide values", function () {
+  it("check negative line values", () => {
+    //given
+    const nbLignes = -4;
+    const nbColonnes = 5;
+    const nbBombes = 5;
+    expect(() => {  functions.setupGame(nbLignes,nbColonnes,nbBombes) }).toThrow(Error);
   });
 });
