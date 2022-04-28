@@ -37,7 +37,6 @@ function setupGame(nbLignes, nbCases, nbMines) {
     });
     i++;
   });
-  console.log("grid :",grid);
   return grid;
 }
 
