@@ -2,7 +2,11 @@ import functions from "../src/minesweeper";
 
 describe("setupGame tests", function () {
   it("should return an array", () => {
-    expect(functions.setupGame()).toStrictEqual([
+    expect(functions.setupGame(4,4,2))
+    
+    
+    
+    .toStrictEqual([
       ["*", ".", ".", "."],
       [".", ".", ".", "."],
       [".", "*", ".", "."],

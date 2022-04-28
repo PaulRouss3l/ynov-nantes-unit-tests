@@ -1,10 +1,43 @@
 function setupGame(nbLignes, nbCases, nbMines) {
-  const grid = [
-    ["*", ".", ".", "."],
-    [".", ".", ".", "."],
-    [".", "*", ".", "."],
-    [".", ".", ".", "."],
-  ];
+  let grid = [];
+  for (let i = 0; i < nbLignes; i++) {
+    let grid2 = [];
+    for (let j = 0; j < nbCases; j++) {
+      grid2.push(".");
+    }
+    grid[i] = grid2;
+  }
+
+  let randomBombsPosition = [];
+  for (let k = 0; k < nbMines; k++) {
+    var randomNumber = Math.round(
+      Math.random() * (nbLignes * nbCases - 1 + 1) + 1
+    );
+    let find = randomBombsPosition.find((element) => element == randomNumber);
+    if (find == undefined) {
+      console.log(find);
+      randomBombsPosition[k] = randomNumber;
+    } else {
+      k = k - 1;
+    }
+  }
+
+  let i = 0;
+  let j = 0;
+  let compteur = 1;
+  grid.forEach((line) => {
+    j = 0;
+    line.forEach((row) => {
+        let findBombPosition = randomBombsPosition.find(element => element == compteur);
+        if(findBombPosition != undefined){
+            grid[i][j]="*"
+        }
+        compteur ++ 
+        j++;
+    });
+    i++;
+  });
+  console.log("grid :",grid);
   return grid;
 }
 
@@ -77,5 +110,5 @@ export default {
   setupGame,
   getBombsPosition,
   putSafeCaseNextToBomb,
-  changePointTo0
+  changePointTo0,
 };
