@@ -1,0 +1,77 @@
+---
+swagger: "2.0"
+info:
+  description: "Simple and basic API description for toDo API."
+  version: "1.0"
+  title: "todo"
+  license:
+    name: "MIT"
+host: "localhost:5000"
+tags:
+- name: "todo"
+  description: "List of things to do"
+schemes:
+- "http"
+paths:
+  /todo:
+    get:
+      tags:
+        name: "get_todo"
+        description: "get list of todo things"
+        type: "array"
+      responses:
+        "200":
+          description: "list of todos"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Todo"
+        "500":
+          description: "Error server side"
+    post:
+        name: "post_todo"
+        description: "save a todo in database"
+        type: "object"
+        parameters: 
+          -name: body
+          in: body
+          required: true
+          schama:
+            $ref: "#/definitions/Todo"
+      responses:
+        "200":
+          description: "Create todo"
+          schema:
+            $ref: "#/definitions/Todo"
+        "500":
+          description: "Error server side"
+  /todo/{id}:
+    patch:
+      tags:
+        name: "get_todo_id"
+        description: "get a todo with a given id"
+        type: "object"
+        parameters:
+          -name: "id"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Get todo with specified id"
+          schema:
+              $ref: "#/definitions/Todo"
+        "400":
+          description: "Todo not found"
+        "500":
+          description: "Error server side"
+definitions:
+  Todo:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      text:
+        type: "string"
+      done:
+        type: "boolean"
