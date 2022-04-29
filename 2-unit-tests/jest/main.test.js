@@ -35,7 +35,7 @@ describe('Integration tests for main', () => {
 
     // On verifie qu'on a bien reçu un message d'erreur venant de l'API
     // Et qu'on l'a bien affiché dans la console
-    expect(console.error).toBeCalledTimes(1);
+    expect(console.error).toBeCalledTimes(2);
     expect(console.error).toHaveBeenLastCalledWith('Could not reach API : "myUrl.com/v1/someurl"');
   });
 });

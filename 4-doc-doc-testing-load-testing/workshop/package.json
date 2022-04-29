@@ -4,12 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "nodemon server.js",
+    "start": "nodemon server.js",
     "test": "jest"
-  },
-  "jest": {
-    "preset": "@shelf/jest-mongodb"
   },
   "author": "",
   "license": "ISC",
