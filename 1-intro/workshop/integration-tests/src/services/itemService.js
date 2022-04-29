@@ -1,18 +1,20 @@
-const Item = require('../models/Item.js')
-
-const createItem = (body) => {
-    if (!body.name) {
-        throw new Error('No name provided in the body');
+const createItem = Item => (name,date) => {
+    if (!name || !date) {
+        throw new Error(`Name: ${name} date: ${date}`);
     }
-    const item = new Item({name: body.name});
-    return item.save();
-}
 
-const listItems = () => {
+    const item = new Item({name,date});
+    return item.save();
+};
+
+
+const listItems = Item => () => {
     return Item.find({});
 }
 
-module.exports = {
-        createItem: createItem,
-        listItems: listItems
+module.exports = Item => {
+    return {
+        createItem: createItem(Item),
+        listItems: listItems(Item)
+    };
 };

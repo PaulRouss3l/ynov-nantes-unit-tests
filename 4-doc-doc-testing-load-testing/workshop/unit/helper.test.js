@@ -17,5 +17,19 @@ describe("Correct Behavior Helper Service", () => {
         param = "hello";
         expect(HelperService.helperTodoCreation(param)).toBe(false);
     })
-
 })
+
+describe("should be false", function () {
+    it("should return true", function () {
+      let todo = new ToDo([]);
+      expect(todo.done).toBeFalsy();
+    });
+  });
+  
+describe("Should be egal", function () {
+    it("should be equal to text", function () {
+      let todo = new ToDo([]);
+      todo.text = "test";
+      expect(todo.text).toBe("test");
+});
+});
