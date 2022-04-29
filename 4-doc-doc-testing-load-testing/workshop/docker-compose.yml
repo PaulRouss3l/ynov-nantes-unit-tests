@@ -4,7 +4,7 @@ services:
   web:
     image: "docker-node-mongo-todo-app"
     build: .
-    command: "node server.js"
+    command: "npm start"
     ports:
       - "5000:5000"
     depends_on:
