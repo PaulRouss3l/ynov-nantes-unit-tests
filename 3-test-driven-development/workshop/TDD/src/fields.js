@@ -3,3 +3,4 @@ export const field_one_bomb5x4 = ".... \n ..*. \n .... \n .... \n ....";
 
 export const field_one_bomb4x4 = ".... \n .... \n *... \n ....";
 export const field_multi_bomb4x4 = "..*. \n .*.. \n *... \n ....";
+export const field_multi_bomb4x4_with_error = "45*. \n .*.. \n *... \n ....";
